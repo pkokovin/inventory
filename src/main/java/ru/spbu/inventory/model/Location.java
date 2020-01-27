@@ -3,6 +3,7 @@ package ru.spbu.inventory.model;
 import javax.persistence.*;
 import java.util.List;
 
+//locations, where devices placed
 @Entity
 @Table(name = "locations")
 public class Location extends AbstractNamedEntity {
@@ -21,6 +22,7 @@ public class Location extends AbstractNamedEntity {
     @Column(name = "room")
     private Integer room;
 
+//    list of devices placed on this address
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "location")
     protected List<Device> devices;
 

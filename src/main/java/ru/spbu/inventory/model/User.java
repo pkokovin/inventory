@@ -16,10 +16,12 @@ import java.util.Date;
 import java.util.EnumSet;
 import java.util.Set;
 
+// customer of application
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_unique_email_idx")})
 public class User extends AbstractNamedEntity implements HasEmail {
 
+    //email as login
     @Column(name = "email", nullable = false, unique = true)
     @Email
     @NotBlank
@@ -30,7 +32,6 @@ public class User extends AbstractNamedEntity implements HasEmail {
     @Column(name = "password", nullable = false)
     @NotBlank
     @Size(min = 5, max = 100)
-//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")

@@ -6,43 +6,51 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
+//The main entity class. Entities to count and store at database.
 @Entity
-@Table(name = "devices")
+@Table(name = "devices", uniqueConstraints = {@UniqueConstraint(columnNames = "dnsname", name = "devices_unuque_dnsname_idx")})
 public class Device extends AbstractBaseEntity {
-
+//    every device should have dns name (even if it is passive network device, or just active but without management interface)
     @Column(name = "dnsname", nullable = false, unique = true)
     @NotBlank
     @Size(min =3, max = 50)
     private String dnsName;
 
+//    every device should have model name (even if noname device)
     @Column(name = "model", nullable = false)
     @NotBlank
     @Size(min = 2, max = 100)
     private String modelName;
 
+//    serial number unique if exist
     @Column(name = "serial", unique = true)
     private String serialNumber;
 
+//    inventory number may be one for two devices with different serial numbers
     @Column(name = "inventory")
     private String inventoryNumber;
 
+//    manufactured date, default date of install
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "manufactured")
     private Date manufacturedDate;
 
+//    short description of device
     @NotNull
     @Column
     @NotBlank
     @Size(min = 5, max = 200)
     private String description;
 
+//    contacts of responsible person
     @NotNull
     @NotBlank
     @Column(name = "contacts")
     @Size(min = 5, max = 100)
     private String contacts;
 
+//    disposition of device
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id", nullable = false)
     @NotNull
@@ -52,13 +60,7 @@ public class Device extends AbstractBaseEntity {
     }
 
     public Device(String dnsName, String modelName, String serialNumber, String inventoryNumber, Date manufacturedDate, String description, String contacts) {
-        this.dnsName = dnsName;
-        this.modelName = modelName;
-        this.serialNumber = serialNumber;
-        this.inventoryNumber = inventoryNumber;
-        this.manufacturedDate = manufacturedDate;
-        this.description = description;
-        this.contacts = contacts;
+       this(null, dnsName, modelName, serialNumber, inventoryNumber, manufacturedDate, description, contacts);
     }
 
     public Device(Integer id, String dnsName, String modelName, String serialNumber, String inventoryNumber, Date manufacturedDate, String description, String contacts) {

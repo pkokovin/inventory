@@ -60,7 +60,7 @@ class LocationRestControllerTest extends AbstractControllerTest {
 
     @Test
     void addWithLocation() throws Exception {
-        Location newLocation = LocationsTestData.getNew();
+        Location newLocation = getNew();
         ResultActions action = perform(doPost().jsonBody(newLocation).basicAuth(USER));
 
         Location added = readFromJson(action, Location.class);
@@ -79,7 +79,7 @@ class LocationRestControllerTest extends AbstractControllerTest {
 
     @Test
     void update() throws Exception {
-        Location updated = LocationsTestData.getUpdated();
+        Location updated = getUpdated();
         perform(doPut(LOCATION1_ID).jsonBody(updated).basicAuth(USER))
                 .andExpect(status().isNoContent());
         LOCATION_MATCHERS.assertMatch(locationService.get(LOCATION1_ID), updated);
