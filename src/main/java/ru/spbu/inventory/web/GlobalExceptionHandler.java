@@ -19,8 +19,12 @@ import java.util.Map;
 public class GlobalExceptionHandler {
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
+    private final MessageUtil messageUtil;
+
     @Autowired
-    private MessageUtil messageUtil;
+    public GlobalExceptionHandler(MessageUtil messageUtil) {
+        this.messageUtil = messageUtil;
+    }
 
     @ExceptionHandler(NoHandlerFoundException.class)
     public ModelAndView wrongRequest(HttpServletRequest req, NoHandlerFoundException e) throws Exception {
@@ -38,6 +42,8 @@ public class GlobalExceptionHandler {
         return logAndGetExceptionView(req, e, true, ErrorType.APP_ERROR, null);
     }
 
+
+//    forward to WEB-INF/jsp/exception.jsp
     private ModelAndView logAndGetExceptionView(HttpServletRequest req, Exception e, boolean logException, ErrorType errorType, String msg) {
         Throwable rootCause = ValidationUtil.logAndGetRootCause(log, req, e, logException, errorType);
 
