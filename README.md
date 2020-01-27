@@ -1,3 +1,6 @@
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/af41f982e4b34dc3b953530b197d7311)](https://app.codacy.com/manual/pkokovin/inventory?utm_source=github.com&utm_medium=referral&utm_content=pkokovin/inventory&utm_campaign=Badge_Grade_Dashboard)
+
 Разработка прототипа приложения учета оборудования ЦОД СПбГУ
 
 Задача:
