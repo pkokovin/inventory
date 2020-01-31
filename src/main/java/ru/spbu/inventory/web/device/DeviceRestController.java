@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import ru.spbu.inventory.View;
 import ru.spbu.inventory.model.Device;
 import ru.spbu.inventory.service.DeviceService;
 
@@ -49,7 +51,7 @@ public class DeviceRestController {
     }
 
     @PostMapping(value ="/{locationId}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Device> addWithLocation(@RequestBody Device device, @PathVariable int locationId) {
+    public ResponseEntity<Device> addWithLocation(@Validated(View.Web.class) @RequestBody Device device, @PathVariable int locationId) {
         checkNew(device);
         log.info("create {} at location with id {}", device, locationId);
         Device created = deviceService.add(device, locationId);
@@ -69,7 +71,7 @@ public class DeviceRestController {
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void update(@RequestBody Device device) {
+    public void update(@Validated(View.Web.class) @RequestBody Device device) {
         log.info("updating device {}", device);
         deviceService.update(device);
     }

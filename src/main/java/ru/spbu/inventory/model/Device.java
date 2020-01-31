@@ -1,5 +1,10 @@
 package ru.spbu.inventory.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.validator.constraints.SafeHtml;
+import ru.spbu.inventory.View;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -14,20 +19,24 @@ public class Device extends AbstractBaseEntity {
     @Column(name = "dnsname", nullable = false, unique = true)
     @NotBlank
     @Size(min =3, max = 50)
+    @SafeHtml(groups = {View.Web.class})
     private String dnsName;
 
 //    every device should have model name (even if noname device)
     @Column(name = "model", nullable = false)
     @NotBlank
     @Size(min = 2, max = 100)
+    @SafeHtml(groups = {View.Web.class})
     private String modelName;
 
 //    serial number unique if exist
     @Column(name = "serial", unique = true)
+    @SafeHtml(groups = {View.Web.class})
     private String serialNumber;
 
 //    inventory number may be one for two devices with different serial numbers
     @Column(name = "inventory")
+    @SafeHtml(groups = {View.Web.class})
     private String inventoryNumber;
 
 //    manufactured date, default date of install
@@ -41,6 +50,7 @@ public class Device extends AbstractBaseEntity {
     @Column
     @NotBlank
     @Size(min = 5, max = 200)
+    @SafeHtml(groups = {View.Web.class})
     private String description;
 
 //    contacts of responsible person
@@ -48,12 +58,14 @@ public class Device extends AbstractBaseEntity {
     @NotBlank
     @Column(name = "contacts")
     @Size(min = 5, max = 100)
+    @SafeHtml(groups = {View.Web.class})
     private String contacts;
 
 //    disposition of device
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id", nullable = false)
-    @NotNull
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @NotNull(groups = View.Persist.class)
     private Location location;
 
     public Device() {
