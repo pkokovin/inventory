@@ -1,6 +1,9 @@
 package ru.spbu.inventory.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.spbu.inventory.model.Device;
@@ -62,5 +65,10 @@ public class DeviceServiceImpl implements DeviceService {
     @Override
     public List<Device> getAllInLocation(int locationId) {
         return deviceRepository.getAllWithLocationId(checkNotFoundWithId(locationRepository.get(locationId), locationId).id());
+    }
+
+    @Override
+    public Page<Device> filter(Specification<Device> specification, Pageable page) {
+        return deviceRepository.getWithSpecification(specification, page);
     }
 }

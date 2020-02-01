@@ -1,6 +1,9 @@
 package ru.spbu.inventory.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 import ru.spbu.inventory.model.Device;
 
@@ -45,5 +48,10 @@ public class DeviceRepositoryImpl implements DeviceRepository {
     @Override
     public List<Device> getAllWithLocationId(int locationId) {
         return crudDeviceRepository.getAllByLocationId(locationId);
+    }
+
+    @Override
+    public Page<Device> getWithSpecification(Specification<Device> specification, Pageable page) {
+        return crudDeviceRepository.findAll(specification, page);
     }
 }

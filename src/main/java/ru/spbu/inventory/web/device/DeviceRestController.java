@@ -4,15 +4,22 @@ package ru.spbu.inventory.web.device;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.spbu.inventory.model.Device;
+import ru.spbu.inventory.model.DeviceSpecification;
 import ru.spbu.inventory.service.DeviceService;
 
+import java.beans.PropertyEditorSupport;
 import java.net.URI;
+import java.util.Date;
 import java.util.List;
 
 import static ru.spbu.inventory.util.ValidationUtil.checkNew;
@@ -34,6 +41,23 @@ public class DeviceRestController {
     public List<Device> getAll() {
         log.info("get all devices");
         return deviceService.getAll();
+    }
+
+    @GetMapping(value = "/filter")
+    public ResponseEntity<List<Device>> filter(@RequestParam(value = "name", required = false) String name,
+                                               @RequestParam(value = "model", required = false) String model,
+                                               @RequestParam(value = "serial", required = false) String serial,
+                                               @RequestParam(value = "inventory", required = false) String inventory,
+                                               @RequestParam(value = "after", required = false) Date after,
+                                               @RequestParam(value = "before", required = false) Date before,
+                                               @RequestParam(value = "description", required = false) String description,
+                                               @RequestParam(value = "contacts", required = false) String contacts,
+                                               @RequestParam(value = "pageNumber", required = false, defaultValue = "0") Integer pageNumber,
+                                               @RequestParam(value = "pageSize", required = false, defaultValue = "5") Integer pageSize,
+                                               DeviceSpecification deviceSpecification) {
+        Pageable page = PageRequest.of(pageNumber, pageSize, Sort.Direction.ASC, "id");
+        return new ResponseEntity<>(deviceService.filter(setSpec(name, model, serial
+                , inventory, after, before, description, contacts, deviceSpecification), page).getContent(), HttpStatus.OK);
     }
 
     @GetMapping("/location/{locationId}")
@@ -72,5 +96,27 @@ public class DeviceRestController {
     public void update(@RequestBody Device device) {
         log.info("updating device {}", device);
         deviceService.update(device);
+    }
+
+    private DeviceSpecification setSpec(String name, String model, String serial
+            , String inventory, Date after, Date before, String description, String contacts, DeviceSpecification deviceSpecification) {
+        if (name != null) deviceSpecification.setName(name);
+        if (model != null) deviceSpecification.setModel(model);
+        if (serial != null) deviceSpecification.setSerial(serial);
+        if (inventory != null) deviceSpecification.setInventory(inventory);
+        if (after != null) deviceSpecification.setAfter(after);
+        if (before != null) deviceSpecification.setBefore(before);
+        if (description != null) deviceSpecification.setDescription(description);
+        if (contacts != null) deviceSpecification.setContacts(contacts);
+        return  deviceSpecification;
+    }
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(Date.class, new PropertyEditorSupport() {
+            public void setAsText(String value) {
+                setValue(new Date(Long.valueOf(value)));
+            }
+        });
     }
 }
