@@ -37,7 +37,8 @@ public class DeviceRepositoryImpl implements DeviceRepository {
 
     @Override
     public Device get(int id) {
-        return crudDeviceRepository.get(id);
+        return crudDeviceRepository.findById(id);
+//        return crudDeviceRepository.get(id);
     }
 
     @Override

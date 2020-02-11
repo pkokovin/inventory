@@ -23,16 +23,16 @@ VALUES ('ats_peterhoff', 'Petrodvorets', 'Botanicheskaya', '27B', 16),
        ('admin', 'Saint-Petersburg', 'Himichesky', '5P', 114);
 
 INSERT INTO devices (location_id, dnsname, model, serial, inventory, manufactured, description, contacts)
-VALUES (100002, 'ats.ad.pu.ru', 'DELL RX750', 'dls8989008kkh788', 'IN77/34.99899873', '2013-06-01 00:00:00', 'punk ats',
+VALUES (100002, 'ats.ad.pu.ru', 'DELL RX750', 'dls8989008kkh788', 'IN77/34.99899873', '2013-06-01', 'punk ats',
         '+78123334455 nik@pu.ru'),
-       (100002, 'ns05.ad.pu.ru', 'SUPERMICRO N560', 'sm876fff98789799', 'IN45/34.87457376', '2010-05-01  00:00:00',
+       (100002, 'ns05.ad.pu.ru', 'SUPERMICRO N560', 'sm876fff98789799', 'IN45/34.87457376', '2010-05-01',
         'punk dns', 'adminpunk@pu.ru'),
-       (100003, 'srvsyn01.ad.pu.ru', 'SYNOLOGY RS2416RP', 'sy127834587875', 'IN37/45.6575675', '2015-04-01  00:00:00',
+       (100003, 'srvsyn01.ad.pu.ru', 'SYNOLOGY RS2416RP', 'sy127834587875', 'IN37/45.6575675', '2015-04-01',
         'thirst storage', '+78125555555 admin@pu.ru'),
        (100003, 'srvqnap01.ad.pu.ru', 'QNAP TVS-EC1271U-RP', 'q127834dfjh587875', 'IN33/234.234234',
-        '2016-07-01 00:00:00', 'second storage', 'admin@pu.ru'),
-       (100004, 'huawei01.ad.pu.ru', 'HUAWEI RH2288H', 'hw989879sr98473', 'IN37/54.8734875', '2017-09-01  00:00:00',
+        '2016-07-01', 'second storage', 'admin@pu.ru'),
+       (100004, 'huawei01.ad.pu.ru', 'HUAWEI RH2288H', 'hw989879sr98473', 'IN37/54.8734875', '2017-09-01',
         'vsan 01', 'admin@pu.ru'),
-       (100004, 'node3.pu.ru', 'CISCO 3750', '830845874HH345', 'IN77/33.3453543', '2012-03-01  00:00:00',
+       (100004, 'node3.pu.ru', 'CISCO 3750', '830845874HH345', 'IN77/33.3453543', '2012-03-01',
         'core network 3750sw', 'nocadm@pu.ru');
 

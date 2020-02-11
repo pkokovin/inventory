@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 //The main entity class. Entities to count and store at database.
@@ -39,9 +40,8 @@ public class Device extends AbstractBaseEntity {
 
 //    manufactured date, default date of install
     @NotNull
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "manufactured")
-    private Date manufacturedDate;
+    private LocalDateTime manufacturedDate;
 
 //    short description of device
     @NotNull
@@ -68,11 +68,11 @@ public class Device extends AbstractBaseEntity {
     public Device() {
     }
 
-    public Device(String dnsName, String modelName, String serialNumber, String inventoryNumber, Date manufacturedDate, String description, String contacts) {
+    public Device(String dnsName, String modelName, String serialNumber, String inventoryNumber, LocalDateTime manufacturedDate, String description, String contacts) {
        this(null, dnsName, modelName, serialNumber, inventoryNumber, manufacturedDate, description, contacts);
     }
 
-    public Device(Integer id, String dnsName, String modelName, String serialNumber, String inventoryNumber, Date manufacturedDate, String description, String contacts) {
+    public Device(Integer id, String dnsName, String modelName, String serialNumber, String inventoryNumber, LocalDateTime manufacturedDate, String description, String contacts) {
         super(id);
         this.dnsName = dnsName;
         this.modelName = modelName;
@@ -115,11 +115,11 @@ public class Device extends AbstractBaseEntity {
         this.inventoryNumber = inventoryNumber;
     }
 
-    public Date getManufacturedDate() {
+    public LocalDateTime getManufacturedDate() {
         return manufacturedDate;
     }
 
-    public void setManufacturedDate(Date manufacturedDate) {
+    public void setManufacturedDate(LocalDateTime manufacturedDate) {
         this.manufacturedDate = manufacturedDate;
     }
 

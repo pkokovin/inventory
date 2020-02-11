@@ -26,4 +26,6 @@ public interface CrudDeviceRepository extends JpaRepository<Device, Integer>, Jp
 
     @Query("SELECT d FROM Device d WHERE d.id=:id")
     Device get(@Param("id") int id);
+
+    Device findById(int id);
 }
