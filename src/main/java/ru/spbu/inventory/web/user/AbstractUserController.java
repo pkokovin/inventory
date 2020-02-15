@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import ru.spbu.inventory.model.AbstractBaseEntity;
+import ru.spbu.inventory.model.Role;
 import ru.spbu.inventory.model.User;
 import ru.spbu.inventory.service.UserService;
 import ru.spbu.inventory.util.exception.ModificationRestrictionException;
@@ -54,6 +55,8 @@ public abstract class AbstractUserController {
     public void update(User user, int id) {
         log.info("update {} with id={}", user, id);
         assureIdConsistent(user, id);
+        if (!service.get(id).getRoles().contains(Role.ROLE_ADMIN)
+                &&user.getRoles().contains(Role.ROLE_ADMIN)) throw new ModificationRestrictionException();
         checkModificationAllowed(id);
         service.update(user);
     }

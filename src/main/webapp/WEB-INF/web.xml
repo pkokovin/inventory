@@ -13,20 +13,6 @@
             classpath:spring/spring-db.xml
         </param-value>
     </context-param>
-    <!--
-    <context-param>
-        <param-name>spring.profiles.active</param-name>
-        <param-value>dev</param-value>
-    </context-param>
-    <context-param>
-        <param-name>spring.profiles.default</param-name>
-        <param-value>dev</param-value>
-    </context-param>
-    <context-param>
-        <param-name>spring.liveBeansView.mbeanDomain</param-name>
-        <param-value>dev</param-value>
-    </context-param>
--->
     <!-- Spring MVC -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

@@ -87,10 +87,10 @@ class AdminRestControllerTest extends AbstractControllerTest {
     @Test
     void update() throws Exception {
         User updated = UserTestData.getUpdated();
-        perform(doPut(USER_ID).jsonUserWithPassword(updated).basicAuth(ADMIN))
+        perform(doPut(ADMIN_ID).jsonUserWithPassword(updated).basicAuth(ADMIN))
                 .andExpect(status().isNoContent());
 
-        USER_MATCHERS.assertMatch(userService.get(USER_ID), updated);
+        USER_MATCHERS.assertMatch(userService.get(ADMIN_ID), updated);
     }
 
     @Test
