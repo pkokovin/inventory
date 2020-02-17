@@ -100,4 +100,14 @@ class DeviceRestControllerTest extends AbstractControllerTest {
                 .andExpect(status().isNoContent());
         DEVICE_MATCHERS.assertMatch(deviceService.get(DEVICE1_ID), updated);
     }
+
+    @Test
+    void getFilteredBetween() throws Exception {
+        perform(doGet("filter").basicAuth(USER).unwrap()
+                .param("after", "2013-05-05T00:00:00")
+                .param("before", "2016-05-05T00:00:00"))
+                .andExpect(status().isOk())
+                .andDo(print())
+        .andExpect(DEVICE_MATCHERS.contentJson(DEVICE01, DEVICE03));
+    }
 }

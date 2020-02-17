@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,9 @@ import ru.spbu.inventory.service.DeviceService;
 
 import java.beans.PropertyEditorSupport;
 import java.net.URI;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
@@ -50,8 +54,8 @@ public class DeviceRestController {
                                                @RequestParam(value = "model", required = false) String model,
                                                @RequestParam(value = "serial", required = false) String serial,
                                                @RequestParam(value = "inventory", required = false) String inventory,
-                                               @RequestParam(value = "after", required = false) Date after,
-                                               @RequestParam(value = "before", required = false) Date before,
+                                               @RequestParam(value = "after", required = false) LocalDateTime after,
+                                               @RequestParam(value = "before", required = false) LocalDateTime before,
                                                @RequestParam(value = "description", required = false) String description,
                                                @RequestParam(value = "contacts", required = false) String contacts,
                                                @RequestParam(value = "pageNumber", required = false, defaultValue = "0") Integer pageNumber,
@@ -101,7 +105,7 @@ public class DeviceRestController {
     }
 
     private DeviceSpecification setSpec(String name, String model, String serial
-            , String inventory, Date after, Date before, String description, String contacts, DeviceSpecification deviceSpecification) {
+            , String inventory, LocalDateTime after, LocalDateTime before, String description, String contacts, DeviceSpecification deviceSpecification) {
         if (name != null) deviceSpecification.setName(name);
         if (model != null) deviceSpecification.setModel(model);
         if (serial != null) deviceSpecification.setSerial(serial);
@@ -113,12 +117,12 @@ public class DeviceRestController {
         return  deviceSpecification;
     }
 
-    @InitBinder
-    protected void initBinder(WebDataBinder binder) {
-        binder.registerCustomEditor(Date.class, new PropertyEditorSupport() {
-            public void setAsText(String value) {
-                setValue(new Date(Long.valueOf(value)));
-            }
-        });
-    }
+//    @InitBinder
+//    protected void initBinder(WebDataBinder binder) {
+//        binder.registerCustomEditor(Date.class, new PropertyEditorSupport() {
+//            public void setAsText(String value) {
+//                setValue(new Date(Long.valueOf(value)));
+//            }
+//        });
+//    }
 }

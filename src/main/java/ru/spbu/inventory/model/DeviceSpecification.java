@@ -7,6 +7,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -15,8 +16,8 @@ public class DeviceSpecification implements Specification<Device> {
     private String model;
     private String serial;
     private String inventory;
-    private Date after;
-    private Date before;
+    private LocalDateTime after;
+    private LocalDateTime before;
     private String description;
     private String contacts;
 
@@ -36,11 +37,11 @@ public class DeviceSpecification implements Specification<Device> {
         this.inventory = inventory;
     }
 
-    public void setAfter(Date after) {
+    public void setAfter(LocalDateTime after) {
         this.after = after;
     }
 
-    public void setBefore(Date before) {
+    public void setBefore(LocalDateTime before) {
         this.before = before;
     }
 
